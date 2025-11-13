@@ -104,24 +104,6 @@ function App() {
     };
   }, [token]);
 
-  useEffect(() => {
-    if (!token) {
-      return;
-    }
-
-    const fetchData = async () => {
-      try {
-        await Promise.all([fetchProfile(), fetchMedicines(), fetchAnalytics()]);
-      } catch (error) {
-        console.error("Fetch data error:", error);
-        // Don't show toast for initial load errors, just log
-      }
-    };
-
-    fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token]);
-
   const fetchProfile = async () => {
     const profile = await fetchWithAuth("/api/auth/me");
     setUser(profile);
@@ -140,6 +122,23 @@ function App() {
     const data = await fetchWithAuth("/api/analytics/dashboard");
     setAnalytics(data);
   };
+
+  useEffect(() => {
+    if (!token) {
+      return;
+    }
+
+    const fetchData = async () => {
+      try {
+        await Promise.all([fetchProfile(), fetchMedicines(), fetchAnalytics()]);
+      } catch (error) {
+        console.error("Fetch data error:", error);
+        // Don't show toast for initial load errors, just log
+      }
+    };
+
+    fetchData();
+  }, [token]);
 
   const handleAuthChange = (event) => {
     const { name, value } = event.target;
