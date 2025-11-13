@@ -6,6 +6,9 @@ const API_BASE =
     process.env.REACT_APP_BACKEND_URL.replace(/\/+$/, "")) ||
   "https://se-project-kp2e.onrender.com";
 
+// Remove /api from API_BASE if present (endpoints already include /api)
+const cleanApiBase = API_BASE.replace(/\/api\/?$/, "");
+
 const AUTH_STORAGE_KEY = "pharmaventory_session";
 
 function useToast() {
@@ -84,7 +87,7 @@ function App() {
         headers.Authorization = `Bearer ${token}`;
       }
 
-      const response = await fetch(`${API_BASE}${path}`, {
+      const response = await fetch(`${cleanApiBase}${path}`, {
         ...options,
         headers
       });
@@ -165,7 +168,7 @@ function App() {
       const endpoint =
         authMode === "register" ? "/api/auth/register" : "/api/auth/login";
 
-      const response = await fetch(`${API_BASE}${endpoint}`, {
+      const response = await fetch(`${cleanApiBase}${endpoint}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
