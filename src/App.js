@@ -110,13 +110,16 @@ function App() {
     }
 
     const fetchData = async () => {
-      await Promise.all([fetchProfile(), fetchMedicines(), fetchAnalytics()]);
+      try {
+        await Promise.all([fetchProfile(), fetchMedicines(), fetchAnalytics()]);
+      } catch (error) {
+        console.error("Fetch data error:", error);
+        // Don't show toast for initial load errors, just log
+      }
     };
 
-    fetchData().catch((error) => {
-      console.error(error);
-      showToast("Failed to refresh data", "error");
-    });
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
   const fetchProfile = async () => {
