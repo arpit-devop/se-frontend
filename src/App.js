@@ -104,21 +104,6 @@ function App() {
     };
   }, [token]);
 
-  useEffect(() => {
-    if (!token) {
-      return;
-    }
-
-    const fetchData = async () => {
-      await Promise.all([fetchProfile(), fetchMedicines(), fetchAnalytics()]);
-    };
-
-    fetchData().catch((error) => {
-      console.error(error);
-      showToast("Failed to refresh data", "error");
-    });
-  }, [token]);
-
   const fetchProfile = async () => {
     const profile = await fetchWithAuth("/api/auth/me");
     setUser(profile);
@@ -137,6 +122,23 @@ function App() {
     const data = await fetchWithAuth("/api/analytics/dashboard");
     setAnalytics(data);
   };
+
+  useEffect(() => {
+    if (!token) {
+      return;
+    }
+
+    const fetchData = async () => {
+      try {
+        await Promise.all([fetchProfile(), fetchMedicines(), fetchAnalytics()]);
+      } catch (error) {
+        console.error("Fetch data error:", error);
+        // Don't show toast for initial load errors, just log
+      }
+    };
+
+    fetchData();
+  }, [token]);
 
   const handleAuthChange = (event) => {
     const { name, value } = event.target;
@@ -166,8 +168,10 @@ function App() {
       const response = await fetch(`${API_BASE}${endpoint}`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "Accept": "application/json"
         },
+        credentials: "include",
         body: JSON.stringify(payload)
       });
 
