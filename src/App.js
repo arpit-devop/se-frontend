@@ -168,8 +168,10 @@ function App() {
       const response = await fetch(`${API_BASE}${endpoint}`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "Accept": "application/json"
         },
+        credentials: "include",
         body: JSON.stringify(payload)
       });
 
