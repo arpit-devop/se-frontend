@@ -1,6 +1,10 @@
 // craco.config.js
 const path = require("path");
-require("dotenv").config();
+try {
+  require("dotenv").config();
+} catch (e) {
+  // dotenv not critical, continue without it
+}
 
 // Environment variable overrides
 const config = {
