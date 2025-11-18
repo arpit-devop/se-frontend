@@ -6,8 +6,8 @@ import Register from './pages/Register';
 import AdminDashboard from './pages/AdminDashboard';
 import PharmacistDashboard from './pages/PharmacistDashboard';
 import SupplierDashboard from './pages/SupplierDashboard';
-import ChatbotWidget from './components/ChatbotWidget';
 import ProtectedRoute from './components/ProtectedRoute';
+import ChatbotWidget from './components/ChatbotWidget';
 import './App.css';
 
 function App() {

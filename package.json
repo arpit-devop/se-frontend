@@ -39,7 +39,6 @@
     "@radix-ui/react-toggle": "^1.1.6",
     "@radix-ui/react-toggle-group": "^1.1.7",
     "@radix-ui/react-tooltip": "^1.2.4",
-    "ajv-keywords": "3.5.2",
     "axios": "^1.7.7",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -74,6 +73,9 @@
     "postcss": "^8.4.49",
     "react-scripts": "^5.0.1",
     "tailwindcss": "^3.4.17"
+  },
+  "overrides": {
+    "ajv-keywords": "^5.1.0"
   },
   "browserslist": {
     "production": [
